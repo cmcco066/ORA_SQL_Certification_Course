@@ -1,0 +1,2 @@
+select ename  || ' makes ' || '$' || sal  || ' per month' as "Statement of Salary"
+from emp;

@@ -1,0 +1,5 @@
+select *
+from emp
+where (comm is null or comm = 0) and
+(sal > 1100 and sal < 5000
+and sal != 3000);

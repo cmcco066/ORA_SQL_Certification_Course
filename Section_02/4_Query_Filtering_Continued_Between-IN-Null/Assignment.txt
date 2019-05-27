@@ -1,0 +1,3 @@
+select ename, hiredate
+from emp
+where deptno in (20, 30);

@@ -1,0 +1,5 @@
+select ename
+from emp
+where job != 'MANAGER' 
+and job != 'SALESMAN'
+and sal >= 2000;
