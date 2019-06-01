@@ -44,5 +44,17 @@ from dual;
 select to_date('3 of June, 2020', 'dd "of" mm, yyyy')
 from dual;
 
+select last_day('02/22/2020')
+from dual;
+
+select last_day('01/22/2020')
+from dual;
+
+select next_day('01/22/2020', 'Tuesday')
+from dual;
+
+select next_day('01/22/2020', 'Monday')
+from dual;
+
 
 
