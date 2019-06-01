@@ -1,0 +1,45 @@
+select *
+from emp
+where lower(ename) = 'king';
+
+select *
+from emp
+where job = lower('MANAGER');
+
+select *
+from emp
+where lower(job) = lower('MANAGER');
+
+select initcap('hello my name') as "Sentence InitCap"
+from dual;
+
+select length('hello my name') as "Length function"
+from dual;
+
+select ename, length(ename) as "Length function"
+from emp;
+
+select ename, length(ename) as "Length function"
+from emp
+where length(ename)=4;
+
+select ename as "Actual Name", substr(ename,2,length(ename)) as "Substr function"
+from emp;
+
+-- equivalent to above but simpler
+
+select ename as "Actual Name", substr(ename,2) as "Substr function"
+from emp;
+
+select ename as "Actual Name", substr(ename,2,1) as "Substr function"
+from emp;
+
+select lpad(ename, 10, '#') as "Left pad", length(lpad(ename, 10, '#')) as length
+from emp;
+
+select rpad(ename, 10, '#')
+from emp;
+
+select ltrim(ename, 'K') as "Left trim"
+from emp;
+

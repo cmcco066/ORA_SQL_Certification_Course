@@ -1,0 +1,23 @@
+select concat(upper('my name is '), lower(ename)) as name 
+from emp;
+
+select upper('teSt') || lower('LOWER') as TESTName
+from DUAL;
+
+select *
+from dual;
+
+select 'test', 'test2'
+from emp;
+
+--Assignment/MySolution
+
+select concat(concat(concat(lower(ename),upper(' is the name')), lower(' and their job is: ')), upper(job)) as Job_Sentence
+from emp;
+
+--Assignment/InstructorSolution
+
+select concat(concat(concat(lower(ename),upper(' is the name')), ' and their job is: '), job) as "Function Call"
+from emp;
+
+

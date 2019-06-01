@@ -1,0 +1,54 @@
+select *
+from emp;
+
+select round(100.779)
+from dual;
+
+select round(100.779,2)
+from dual;
+
+select trunc(100.779)
+from dual;
+
+select trunc(100.779,2)
+from dual;
+
+select sysdate
+from dual;
+
+select systimestamp
+from dual;
+
+select add_months('01/22/2000', 5)
+from dual;
+
+select add_months('01/22/2000', -5)
+from dual;
+
+select add_months(sysdate, -5)
+from dual;
+
+select months_between(add_months(sysdate, -5), sysdate) as "Should be 5"
+from dual;
+
+select months_between('2/2/2010', '10/22/1900') as "Should be 5"
+from dual;
+
+select trunc(systimestamp)
+from dual;
+
+select trunc(systimestamp, 'MONTH') as "First day of the month"
+from dual;
+
+select trunc(systimestamp, 'YEAR') as "First day of the year"
+from dual;
+
+select ename, hiredate as "Actual hiredate", trunc(hiredate, 'YEAR')
+from emp;
+
+select ename, hiredate as "Actual hiredate", trunc(hiredate, 'YEAR') , trunc(hiredate, 'MONTH')
+from emp
+where trunc(hiredate, 'YEAR') = '01/01/1981';
+
+
+
