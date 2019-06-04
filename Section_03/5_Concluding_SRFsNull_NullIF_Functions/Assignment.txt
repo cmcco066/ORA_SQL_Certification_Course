@@ -1,0 +1,31 @@
+select ename, job, sal, NVL(comm, 0)
+from emp
+where empno in (7839,7698,7566,7654);
+
+-- Assignment/MySolution
+
+select ename, job, sal, nvl(to_char(comm), 'No data found')
+from emp
+where empno in (7839,7698,7566,7654);
+
+-- Assignment/InstructorSolution
+
+select ename, job, sal, nvl(to_char(comm), 'No data found')
+from emp
+where empno in (7839,7698,7566,7654);
+
+
+
+select ename, length(ename), nullif(length(ename), 5)
+from emp;
+
+--Assignment/MySolution
+
+select ename, length(ename), nvl(to_char(nullif(length(ename), 5)), 'Length equals to 5') as "Names equal to five"
+from emp;
+
+--Assignment/InstructorSolution
+
+select ename, length(ename), nvl(to_char(nullif(to_char(length(ename)), to_char(5))), 'lenght equals to 5')
+from emp;
+
