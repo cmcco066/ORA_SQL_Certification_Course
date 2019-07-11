@@ -1,0 +1,41 @@
+select *
+from dept
+where deptno = 30;
+
+select *
+from dept
+where deptno = (select deptno from dept where deptno = 30);
+
+select *
+from dept
+where deptno < (select deptno from dept where deptno = 30)
+and lower(dname) like '%research%'
+;
+
+select *
+from (select * from dept);
+
+select ename
+from (select * from emp);
+
+select * 
+from emp 
+where deptno = (select deptno from dept where dname = 'SALES')
+
+select * 
+from emp 
+where deptno IN (select deptno from dept)
+
+select * 
+from emp 
+where deptno IN (select deptno from dept where deptno IN (10,30))
+
+
+select job, ename, (select job from emp where ROWNUM = 1) 
+from emp;
+
+select job, ename, (select 'AA' from dual) 
+from emp;
+
+select job, ename, (select * from dual) 
+from emp;

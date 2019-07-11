@@ -1,0 +1,69 @@
+-- Assignment replicate the following with a left outer join
+SELECT *
+FROM (select * from emp where job = 'SALESMAN') e
+FULL OUTER JOIN (select * from dept) d ON e.deptno = d.deptno;
+
+--Assignment/MySolution
+SELECT e.*, d.*
+FROM (select * from dept) d 
+LEFT OUTER JOIN (select * from emp where job = 'SALESMAN') e  
+ON  d.deptno = e.deptno
+ORDER BY d.deptno, e.empno;
+
+--Assignment/InstructorSolution
+SELECT empno, ename, job, mgr, hiredate, sal, comm, e.deptno as deptno, d.deptno as deptno, dname, loc
+FROM (select * from dept) d 
+LEFT OUTER JOIN (select * from emp where job = 'SALESMAN') e  
+ON  d.deptno = e.deptno;
+
+--Assignment/InstructorSolution2
+SELECT e.*, d.*
+FROM (select * from dept) d LEFT OUTER JOIN (select * from emp where job = 'SALESMAN') e  
+ON  d.deptno = e.deptno;
+
+SELECT *
+FROM emp
+WHERE EXISTS (select 'random' from dual);
+
+SELECT *
+FROM emp
+WHERE NOT EXISTS (select 'random' from dual);
+
+SELECT *
+FROM emp
+WHERE EXISTS (select null from dual);
+
+SELECT *
+FROM emp
+WHERE EXISTS (select * from emp where job = 'PROGRAMMER');
+
+SELECT *
+FROM emp
+WHERE NOT EXISTS (select * from emp where job = 'PROGRAMMER');
+
+-- Does d.deptno EXIST in emp's deptno column?
+SELECT d.*
+FROM dept d
+WHERE EXISTS (select * from emp where d.deptno = emp.deptno)
+
+SELECT d.*
+FROM dept d
+WHERE NOT EXISTS (select * from emp where d.deptno = emp.deptno)
+
+SELECT d.*
+FROM dept d
+WHERE NOT EXISTS (select * from emp where d.deptno = emp.deptno)
+AND loc = 'CHICAGO'
+
+SELECT d.*
+FROM dept d
+WHERE NOT EXISTS (select * from emp where d.deptno = emp.deptno)
+AND loc = 'BOSTON'
+
+SELECT d.*
+FROM dept d
+WHERE NOT EXISTS (select * from emp where d.deptno = emp.deptno)
+OR loc = 'CHICAGO'
+
+
+

@@ -1,0 +1,42 @@
+select *
+from emp;
+
+select max(sal)
+from emp;
+
+select min(sal)
+from emp;
+
+select sum(sal)
+from emp;
+
+-- Assignment/MySolution
+select max(sal)
+from emp
+where job = 'MANAGER';
+
+
+--Assignment/InstructorSolution
+select max(sal)
+from emp
+where lower(job) like '%manager%';
+
+select avg(sal) as "SAL Average"
+from emp;
+
+select count(*) numOfEmps
+from emp;
+
+select count(comm) numOfEmps
+from emp;
+
+select comm
+from emp;
+
+
+select sum(sal)/count(*) as "Manual AVG", avg(sal) as "Shorthand avg"
+from emp;
+
+select sum(sal), avg(sal), count(*), max(sal), min(sal)
+from emp;
+

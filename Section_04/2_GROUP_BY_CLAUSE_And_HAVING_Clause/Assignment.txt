@@ -1,0 +1,56 @@
+select max(sal), job
+from emp
+group by job
+
+select min(sal), job
+from emp
+group by job
+
+select avg(sal), job
+from emp
+group by job
+
+select avg(sal), avg(comm), job
+from emp
+group by job
+
+select count(*), job
+from emp
+group by job
+
+select job
+from emp
+group by job
+having job in ('MANAGER', 'PRESIDENT')
+
+select count(*), job
+from emp
+group by job
+having count(*) = 2
+
+
+
+select count(*), job
+from emp
+where sal > 2000
+group by job
+having count(*) = 2
+
+select count(*), job
+from emp
+where sal > 2000
+group by job
+
+-- Assignment/MySolution
+select deptno
+from emp
+group by deptno
+having count(*) >= 4
+
+-- Assignment/InstructorSolution
+select deptno
+from emp
+group by deptno
+having count(*) > 3
+
+

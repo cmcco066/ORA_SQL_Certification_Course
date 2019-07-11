@@ -1,0 +1,50 @@
+select *
+from emp
+where deptno in (select deptno from dept where loc = 'CHICAGO');
+
+select *
+from emp
+join dept on emp.deptno = dept.deptno
+where dept.loc = 'CHICAGO'
+
+select *
+from emp, dept
+where emp.deptno = dept.deptno
+and dept.loc = 'CHICAGO'
+
+--Assignment/MySolution
+select emp.ename, emp.job, emp.sal
+from emp, dept
+where emp.deptno = dept.deptno
+and dept.loc = 'DALLAS'
+
+--Assignment/InstructorSolution
+select ename, job, sal
+from emp, dept
+where emp.deptno = dept.deptno
+and loc = 'DALLAS'
+
+select e.ename, e.job, e.sal, d.deptno
+from emp e, dept d
+where e.deptno = d.deptno
+and d.loc = 'DALLAS'
+
+select e.ename, e.job, e.sal, d.deptno
+from (select* from emp) e, dept d
+where e.deptno = d.deptno
+and d.loc = 'DALLAS'
+
+select e.ename, e.job, e.sal, d.deptno
+from (select* from emp where ename = 'SCOTT') e, dept d
+where e.deptno = d.deptno
+and d.loc = 'DALLAS'
+
+select e.ename, e.job, e.sal, d.deptno
+from (select* from emp where job IN ('ANALYST','CLERK')) e, dept d
+where e.deptno = d.deptno
+and d.loc = 'DALLAS'
+
+select e.ename, e.job, e.sal, d.deptno
+from (select* from emp where job IN ('ANALYST','CLERK')) e, (select * from dept where dept.loc = 'DALLAS') d
+where e.deptno = d.deptno
+

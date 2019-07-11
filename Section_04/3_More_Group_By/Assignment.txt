@@ -1,0 +1,22 @@
+select *
+from emp;
+
+select count(*) as "Number of jobs", job as "Job title"
+from emp
+group by job;
+
+select count(*) as "Number of jobs", job as "Job title", deptno
+from emp
+group by job, deptno;
+
+select count(*) as "Number of jobs", job as "Job title", deptno
+from emp
+group by job, deptno, mgr;
+
+select count(*) as "Number of jobs", job as "Job title", mgr
+from emp
+group by job, mgr;
+
+select count(*) as "Number of jobs", job as "Job title"
+from emp
+group by job, mgr;

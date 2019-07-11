@@ -1,0 +1,60 @@
+select * 
+from emp, dept
+where emp.deptno = dept.deptno;
+
+select * 
+from dept
+INNER JOIN emp on emp.deptno = dept.deptno;
+
+
+select * 
+from dept
+RIGHT JOIN emp on emp.deptno = dept.deptno;
+
+select * 
+from dept
+LEFT JOIN emp on emp.deptno = dept.deptno;
+
+select * 
+from emp
+LEFT JOIN dept on emp.deptno = dept.deptno;
+
+select * 
+from emp
+LEFT OUTER JOIN dept on emp.deptno = dept.deptno;
+
+--Oracle syntax only (+). NOT RECOMMENDED
+select * 
+from emp, dept
+where emp.deptno(+) = dept.deptno;
+
+--Oracle syntax only (+). NOT RECOMMENDED
+select * 
+from emp, dept
+where emp.deptno = dept.deptno(+);
+
+
+SELECT *
+FROM emp
+FULL OUTER JOIN dept ON dept.deptno = emp.deptno;
+
+SELECT *
+FROM (select * from emp where deptno=20) e
+FULL OUTER JOIN dept ON dept.deptno = e.deptno;
+
+SELECT *
+FROM (select * from dept where deptno=20) d
+FULL OUTER JOIN emp ON emp.deptno = d.deptno;
+
+-- Assignment replicate the following with a left outer join
+SELECT *
+FROM (select * from emp where job = 'SALESMAN') e
+FULL OUTER JOIN (select * from dept) d ON e.deptno = d.deptno;
+
+--Assignment/MySolution
+SELECT e.*, d.*
+FROM (select * from dept) d 
+LEFT OUTER JOIN (select * from emp where job = 'SALESMAN') e  
+ON  d.deptno = e.deptno;
+
+
