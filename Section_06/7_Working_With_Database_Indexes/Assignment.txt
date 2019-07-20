@@ -1,0 +1,76 @@
+SELECT * FROM employees;
+
+-- think of an index as a history book of people with an index section on all historical figures sorted alphabetically.
+CREATE INDEX emp_name_idx
+ON employees(ename);
+
+SELECT * FROM employees
+WHERE ename = 'JONES';
+
+CREATE INDEX emp_name_job_date_idx
+ON employees (ename, job, hiredate);
+
+-- Check "Explain" tab to see the Query Plan
+SELECT * FROM employees
+WHERE ename = 'JONES'
+AND hiredate > '01/01/1900'
+AND job != 'ANALYST';
+
+-- Check "Explain" tab to see the Query Plan
+SELECT * FROM employees
+WHERE ename = 'JONES'
+AND hiredate > '01/01/1900'
+
+-- START get query plan 
+EXPLAIN PLAN FOR SELECT * FROM employees
+WHERE ename = 'JONES'
+AND hiredate > '01/01/1900';
+
+SELECT * FROM table(dbms_xplan.display);
+-- END get query plan 
+
+-- can't be run because job column is bound to have duplicate values
+CREATE UNIQUE INDEX emp_job_idx
+ON employees(job);
+
+CREATE INDEX emp_job_idx
+ON employees(job);
+
+DROP INDEX emp_job_idx;
+
+DROP INDEX emp_name_job_date_idx;
+
+CREATE INDEX emp_name_job_date_idx
+ON employees (ename, job, hiredate)
+COMPUTE STATISTICS;
+
+ALTER INDEX emp_name_idx
+REBUILD COMPUTE STATISTICS;
+
+--Assignment/MySolution create unique index on store_id column on Store table. Also elect it to be PK.
+SELECT * FROM stores;
+
+-- deletes all records that have duplicate store_id entries
+DELETE stores 
+WHERE store_id IN (
+  SELECT store_id FROM (
+    SELECT store_id, count(store_id) as storeIDCount 
+    FROM stores 
+    GROUP BY store_id
+  ) 
+  WHERE storeIDcount > 1
+);
+
+SELECT * FROM stores;
+
+ALTER TABLE stores
+ADD CONSTRAINT pk_store_id PRIMARY KEY (store_id);
+
+CREATE UNIQUE INDEX stores_store_id_idx
+ON stores(store_id)
+COMPUTE STATISTICS;
+
+--Assignment/InstructorSolution create unique index on store_id column on Store table. Also elect it to be PK.
+
+
+

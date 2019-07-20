@@ -1,0 +1,64 @@
+SELECT * from dept;
+
+SELECT * FROM dept
+WHERE deptno = 40;
+
+-- apex has auto commit enabled (we do not need to manually commit)
+DELETE FROM dept
+WHERE deptno = 40;
+
+SELECT * FROM dept
+WHERE deptno = 40;
+
+SELECT * FROM dept;
+-- can't delete due to fk constraint in emp table on deptno column
+DELETE FROM dept;
+SELECT * FROM emp;
+DESCRIBE emp;
+
+-- since in the emp table we have a fk constraint on the mgr column to the empno column of the same emp table, we would be unable to delete any record from the emp table that is referenced by another record in the emp table
+DELETE FROM emp
+WHERE ename = 'KING'
+
+-- the fk constraint did not exist like it did for the instructor's table. The row was removed
+SELECT * FROM emp;
+
+-- add the record back with our new employees table
+INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+SELECT empno, ename, job, null, hiredate, sal, comm, 10
+FROM employees 
+WHERE ename ='KING';
+
+-- add the fk constraint to emp
+ALTER TABLE emp
+ADD CONSTRAINT Fk_mgr FOREIGN KEY (mgr) REFERENCES emp(empno);
+
+-- now try to delete KING which is references by other records
+DELETE FROM emp
+WHERE ename = 'KING';
+
+-- constraint names are better defined in this version of apex compared to the instructor's version of apex
+ALTER TABLE emp
+DROP CONSTRAINT fk_deptno;
+
+-- can now put deptno that are not in the dept table
+UPDATE emp
+SET deptno = 99
+WHERE deptno = 10;
+
+SELECT * FROM emp;
+
+-- deletes table entirely
+DROP TABLE dept;
+
+-- does not exist anymore
+SELECT * FROM dept;
+
+-- deletes all records in emp
+TRUNCATE TABLE emp;
+
+SELECT * FROM emp;
+
+DESCRIBE emp;
+
+DROP TABLE emp;

@@ -1,0 +1,10 @@
+select * from emp;
+
+select * from dept;
+
+CREATE TABLE stores
+(
+store_id number not null,
+city varchar(50)
+);
+

@@ -1,0 +1,30 @@
+-- acting as user "Taz" which has access to the Products table
+
+-- Taz grants SELECT privilege to user U3
+GRANT SELECT ON Products TO U3
+
+-- U3 can do the following now
+SELECT * FROM Taz.Products;
+
+-- Taz grants more privileges
+GRANT SELECT, UPDATE, DELETE ON Products TO U4,U3;
+
+-- Taz revokes privileges
+GRANT SELECT, UPDATE, DELETE ON Products FROM U4,U3;
+
+-- Taz creates a role
+Create ROLE r1;
+
+-- Taz grants privileges (P1, P2, P3) to a role (r1)
+GRANT P1, P2, P3 TO r1;
+
+-- Taz assigns user to a role
+ALTER USER U3 
+DEFAULT ROLE r1;
+
+-- Know what your schema/user is / doesn't work in apex (due to restrictions)
+SHOW USER;
+
+-- To achieve the SHOW USER result in apex
+SELECT sys_context('userenv', 'current_schema')
+FROM dual;

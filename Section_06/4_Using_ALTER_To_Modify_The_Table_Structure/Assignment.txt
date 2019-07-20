@@ -1,0 +1,44 @@
+select * from products;
+
+INSERT INTO products
+VALUES (1004, '', 1.00, 5.24, 'Clothing', 3);
+
+INSERT INTO products
+VALUES (1005, 'T-SHIRT', 4.22, 15.24, 'Clothing', 3);
+
+INSERT INTO products
+VALUES (1006, 'Shorts', 2.22, 11.24, 'Clothing', 3);
+
+-- Delete null records before enforcing the "not null" constraint
+DELETE FROM products WHERE name is NULL;
+
+DESCRIBE products;
+
+-- Enforce the "not null" constraint on "name" column
+ALTER TABLE products
+MODIFY name varchar2(50) not null;
+
+DESCRIBE products;
+
+INSERT INTO products
+VALUES (1004, '', 1.00, 5.24, 'Clothing', 3);
+
+INSERT INTO products
+VALUES (1004, 'Pants', 1.00, 5.24, 'Clothing', 3);
+
+DESCRIBE emp;
+
+ALTER TABLE products
+MODIFY 
+(
+product_cost number(5,2) not null,
+product_retail number(5,2) not null
+);
+
+DESCRIBE products;
+
+ALTER TABLE products
+RENAME COLUMN name TO product_name;
+
+
+DESCRIBE products;

@@ -1,0 +1,89 @@
+CREATE TABLE employees AS
+SELECT empno, ename, job, hiredate, sal, comm
+FROM emp;
+
+SELECT * FROM employees;
+
+
+
+DESCRIBE employees;
+
+DESCRIBE emp;
+
+-- not going to work as we already have data in our table
+ALTER TABLE employees
+ADD store_id number not null;
+
+ALTER TABLE employees
+ADD store_id number;
+
+SELECT * FROM stores;
+
+INSERT INTO employees
+VALUES (7888, 'Rando', 'CLERK', '12/29/2010', 8500, null, 1);
+
+SELECT * FROM employees
+WHERE lower(ename) = 'rando';
+
+-- set store_id for all records
+UPDATE employees
+SET store_id = 1;
+
+SELECT * FROM employees;
+
+-- set store_id for all records
+UPDATE employees
+SET store_id = 3;
+
+UPDATE employees
+SET store_id = 2
+WHERE ename in ('KING', 'BLAKE', 'CLARK');
+
+-- Assignment/MySolution, want (salesmen working in store_id 2), and (clerk and analysts in store_id 4), and (JONES in store_id 1)
+UPDATE employees
+SET store_id = 2
+WHERE job = 'SALESMAN';
+
+UPDATE employees
+SET store_id = 4
+WHERE job in ('CLERK', 'ANALYST');
+
+UPDATE employees
+SET store_id = 1
+WHERE empno = '7566';
+
+-- Assignment/InstructorSolution, want (salesmen working in store_id 2), and (clerk and analysts in store_id 4), and (JONES in store_id 1)
+UPDATE employees
+SET store_id = 2
+WHERE job = 'SALESMAN';
+
+UPDATE employees
+SET store_id = 4
+WHERE job = 'ANALYST';
+
+UPDATE employees
+SET store_id = 4
+WHERE job = 'CLERK';
+
+UPDATE employees
+SET store_id = 1
+WHERE ename = 'JONES';
+
+
+-- Assignment/MySolution add not null constraint to our store_id now that we have no nulls in our store_id column
+ALTER TABLE employees
+MODIFY
+(
+store_id number not null
+);
+
+DESCRIBE employees;
+
+-- Assignment/InstructorSolution add not null constraint to our store_id now that we have no nulls in our store_id column
+ALTER TABLE employees
+MODIFY store_id number not null;
+
+-- now invalid
+UPDATE employees
+SET store_id = null
+WHERE ename = 'JONES';

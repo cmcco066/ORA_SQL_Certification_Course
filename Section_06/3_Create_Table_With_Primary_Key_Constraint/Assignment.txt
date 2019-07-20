@@ -1,0 +1,41 @@
+INSERT INTO stores (store_id, city)
+VALUES (7, 'Toronto');
+
+CREATE TABLE products
+(
+product_id number not null,
+name varchar(50),
+product_cost number(5,2),
+product_retail number(5,2),
+product_type varchar(10),
+store_id number not null,
+
+CONSTRAINT product_pk PRIMARY KEY (product_id)
+);
+
+select * from products;
+
+
+--Assignment/MySolution
+INSERT INTO products (product_id, name, product_cost, product_retail, product_type, store_id)
+VALUES (1001, 'Colgate Toothpaste', 2.25, 5.47, 'hygiene', 2);
+
+INSERT INTO products (product_id, name, product_cost, product_retail, product_type, store_id)
+VALUES (1002, 'Colgate Toothpaste', 2.25, 5.47, 'hygiene', 2);
+
+INSERT INTO products (product_id, name, product_cost, product_retail, product_type, store_id)
+VALUES (1003, 'Listerine Mouthwash', 1.75, 4.81, 'hygiene', 3);
+
+select * from products;
+
+--Assignment/InstructorSolution
+INSERT INTO products (product_id, name, product_cost, product_retail, product_type, store_id)
+VALUES (1001, 'Colgate Toothpaste', 2.25, 5.47, 'hygiene', 2);
+
+INSERT INTO products (product_id, name, product_cost, product_retail, product_type, store_id)
+VALUES (1002, 'Colgate Toothpaste', 2.25, 5.47, 'hygiene', 2);
+
+INSERT INTO products (product_id, name, product_cost, product_retail, product_type, store_id)
+VALUES (1003, 'Listerine Mouthwash', 1.75, 4.81, 'hygiene', 3);
+
+

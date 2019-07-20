@@ -1,0 +1,121 @@
+-- a view is a named query
+
+SELECT * FROM employees
+WHERE lower(job) = 'manager';
+
+CREATE VIEW managers_v AS 
+SELECT * FROM employees
+WHERE lower(job) = 'manager';
+
+SELECT * FROM managers_v;
+SELECT * FROM managers_v WHERE store_id = 2;
+SELECT empno,store_id, ename FROM managers_v WHERE store_id = 2;
+
+-- get our View objects
+SELECT * FROM user_objects
+WHERE object_type = 'VIEW';
+
+-- all objects for the 'LEARNORACMCCOSHEN' schema
+SELECT * FROM all_objects
+WHERE OWNER = 'LEARNORACMCCOSHEN';
+
+SELECT * FROM all_objects
+WHERE OWNER = 'LEARNORACMCCOSHEN'
+AND object_type = 'TABLE';
+
+SELECT * FROM all_objects
+WHERE rownum < 10
+AND object_type = 'VIEW';
+
+select * from sys.V_$VerSIOn;
+
+-- Drop view from our db
+DROP VIEW managers_v;
+
+
+INSERT INTO employees
+VALUES (7999, 'KINGTWO', 'PRESIDENT', '11/11/1999', 5000, null, 2);
+--Assignment/MySolution get employees with highest paid salary in their stores, and create a view for this query
+-- this won't work as it will match on sal rather than store_id
+SELECT * FROM employees WHERE sal IN (
+ SELECT MAX(sal) FROM employees GROUP BY store_id
+);
+
+SELECT * 
+FROM employees result1
+INNER JOIN (
+ SELECT store_id, MAX(sal) sal FROM employees GROUP BY store_id
+) result2
+ON result1.store_id = result2.store_id
+AND result1.sal = result2.sal;
+
+CREATE VIEW highest_paid_employee_v AS 
+SELECT * FROM employees WHERE sal IN (
+ SELECT MAX(sal) FROM employees GROUP BY store_id
+);
+
+SELECT * FROM highest_paid_employee_v;
+
+--Assignment/InstructorSolution get employees with highest paid salary in their stores, and create a view for this query
+CREATE VIEW super_employees AS
+SELECT e1.* 
+FROM employees e1
+INNER JOIN (
+  SELECT store_id, MAX(sal) sal
+  FROM employees
+  GROUP BY store_id
+) e2
+ON e1.store_id = e2.store_id
+AND e1.sal = e2.sal
+WHERE ename != 'FORD';
+
+SELECT * FROM super_employees
+UNION
+SELECT * FROM employees;
+
+SELECT * FROM super_employees
+UNION
+SELECT * FROM employees WHERE ename = 'FORD';
+
+-- columns need to match, the following is not valid
+SELECT * FROM super_employees
+UNION
+SELECT empno FROM employees WHERE ename = 'FORD';
+
+-- takes all results from top query and appends all results from bottom query (no filtering when ALL)
+SELECT * FROM super_employees
+UNION ALL
+SELECT * FROM employees;
+
+-- bottom query removes records from top query
+SELECT * FROM employees
+MINUS
+SELECT * FROM super_employees;
+
+-- Edit a view
+CREATE OR REPLACE VIEW super_employees AS
+SELECT e1.* 
+FROM employees e1
+INNER JOIN (
+  SELECT store_id, MAX(sal) sal
+  FROM employees
+  GROUP BY store_id
+) e2
+ON e1.store_id = e2.store_id
+AND e1.sal = e2.sal
+WHERE ename != 'FORDd';
+
+CREATE OR REPLACE VIEW super_employees AS
+SELECT e1.* 
+FROM employees e1
+INNER JOIN (
+  SELECT store_id, MAX(sal) sal
+  FROM employees
+  GROUP BY store_id
+) e2
+ON e1.store_id = e2.store_id
+AND e1.sal = e2.sal
+WHERE ename != 'FORD';
+
+
+

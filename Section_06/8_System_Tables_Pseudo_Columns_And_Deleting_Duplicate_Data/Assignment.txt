@@ -1,0 +1,119 @@
+--Assignment/MySolution create unique index on store_id column on Store table. Also elect it to be PK.
+SELECT * FROM stores;
+
+-- deletes all records that have duplicate store_id entries (this will delete all records with that store_id)
+DELETE stores 
+WHERE store_id IN (
+  SELECT store_id FROM (
+    SELECT store_id, count(store_id) as storeIDCount 
+    FROM stores 
+    GROUP BY store_id
+  ) 
+  WHERE storeIDcount > 1
+);
+
+SELECT * FROM stores;
+
+ALTER TABLE stores
+ADD CONSTRAINT pk_store_id PRIMARY KEY (store_id);
+
+CREATE UNIQUE INDEX stores_store_id_idx
+ON stores(store_id)
+COMPUTE STATISTICS;
+
+--Assignment/InstructorSolution create unique index on store_id column on Store table. Also elect it to be PK.
+-- undo MySolution
+ALTER TABLE stores
+DROP CONSTRAINT pk_store_id;
+
+--recreate problem
+INSERT INTO stores
+VALUES (5, 'Seattle');
+
+INSERT INTO stores
+VALUES (6, 'Boston');
+
+SELECT * FROM stores;
+
+SELECT store_id, city, count(*)
+FROM stores
+GROUP BY store_id, city
+ORDER BY count(*);
+
+SELECT rowid, store_id, city FROM stores;
+
+-- lowest rowid for each combination of store_id and city
+SELECT MIN(rowid)
+FROM stores
+GROUP BY store_id, city;
+
+-- will return all data, not what we want for the deletion operation
+SELECT rowid
+FROM stores
+GROUP BY store_id, city, rowid;
+
+-- delete all duplicate store_id and city data
+DELETE FROM stores
+WHERE rowid NOT IN
+(
+SELECT MIN(rowid)
+FROM stores
+GROUP BY store_id, city
+);
+
+SELECT store_id, city, count(*)
+FROM stores
+GROUP BY store_id, city
+ORDER BY count(*);
+
+ALTER TABLE stores
+ADD CONSTRAINT store_id_pk PRIMARY KEY (store_id);
+
+-- PK constraints already create an index
+CREATE UNIQUE INDEX store_id_idx
+ON stores (store_id)
+COMPUTE STATISTICS;
+
+-- END InstructorSolution
+
+SELECT * FROM all_tables
+WHERE rownum < 10;
+
+SELECT * FROM all_tables
+WHERE rownum < 10
+AND table_name = 'EMPLOYEES';
+
+SELECT * FROM all_tab_columns
+WHERE table_name = 'EMPLOYEES'
+AND OWNER = 'LEARNORACMCCOSHEN';
+
+SELECT * FROM all_objects
+WHERE rownum < 50;
+
+SELECT * FROM all_objects
+WHERE rownum < 50
+AND object_type = 'TABLE';
+
+SELECT * FROM all_objects
+WHERE rownum < 50
+AND object_type = 'INDEX';
+
+SELECT * FROM all_objects
+WHERE rownum < 50
+AND lower(object_name) LIKE 'emp_name%'
+AND object_type = 'INDEX';
+
+SELECT * FROM user_tab_columns;
+
+-- will cause insufficient privileges error
+CREATE PUBLIC SYNONYM emp_table
+FOR employees;
+
+-- this will work though
+CREATE SYNONYM emp_table
+FOR employees;
+
+SELECT * FROM emp_table;
+
+
+
